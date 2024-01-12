@@ -1,4 +1,4 @@
-#Solstice 
+# Solstice 
 Port to the PlayStation Vita
 
 ## Changelog
@@ -18,8 +18,6 @@ Port to the PlayStation Vita
 - Love4Retro games for the inital game
 - SonicMastr for the godot port to Vita
 - BrandonHeat8 for the Livearea assets
-
-==============================
 
 Equinox remake made with Godot
 ==============================
