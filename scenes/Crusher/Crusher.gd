@@ -5,7 +5,7 @@ signal enemy_attacked(damage)
 onready var timer = $Timer
 onready var animation_player = $AnimationPlayer
 
-export(float) var crush_frequency = 1
+export(float) var crush_frequency = 1.0
 
 func _ready():
 	timer.wait_time = crush_frequency

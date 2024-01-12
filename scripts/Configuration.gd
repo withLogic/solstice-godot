@@ -3,6 +3,8 @@ extends Node
 var fullscreen = true setget set_fullscreen
 var sfx_volume = 0.5 setget set_sfx_volume
 var music_volume = 0.5 setget set_music_volume
+var joypad_connected = false setget set_joypad_connected
+var low_end_hardware = false setget set_low_end_hardware
 
 func set_fullscreen(value):
 	if OS.get_name() != "HTML5":
@@ -21,6 +23,13 @@ func set_music_volume(value):
 	music_volume = value
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear2db(music_volume))
 	save()
+	
+func set_joypad_connected(value):
+	joypad_connected = value
+
+func set_low_end_hardware(value):
+	low_end_hardware = value
+	Engine.set_target_fps(30)
 
 func save():
 	var config = ConfigFile.new()

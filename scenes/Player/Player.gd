@@ -61,6 +61,11 @@ func set_status(value):
 
 func _ready():
 	ResourceLoader.player = self
+	
+	if Configuration.low_end_hardware:
+		particles.amount = 4
+		damage_particles.amount = 10
+		rebuild_particles.amount = 10	
 
 func _process(_delta):
 	if Input.is_action_pressed("primary"):

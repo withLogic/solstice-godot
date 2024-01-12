@@ -15,7 +15,16 @@ onready var ray: Line2D = $Line2D
 var can_shoot = true
 
 func _process(_delta):
-	var direction = (get_global_mouse_position() - global_position).normalized()
+	# i guess this is where we should be able to track the right joystick and use it.
+	var direction
+	
+	if !Configuration.joypad_connected:
+		direction = (get_global_mouse_position() - global_position).normalized()
+		
+	if Configuration.joypad_connected:
+		direction = Input.get_vector("joypad_rs_left", "joypad_rs_right", "joypad_rs_up", "joypad_rs_down")
+		direction = direction.normalized()
+		
 	rotation = direction.angle()
 
 func fire():
@@ -32,8 +41,12 @@ func fire():
 			if body != null and body.is_in_group("EnemyHurtboxGroup"):
 				body.health -= 1
 				particles = GreenStarParticle.instance()
+				if Configuration.low_end_hardware:
+					particles.amount = 1
 			else:
 				particles = RedStarParticle.instance()
+				if Configuration.low_end_hardware:
+					particles.amount = 1
 			particles.global_position = point
 			particles.emitting = true
 			get_tree().current_scene.add_child(particles)

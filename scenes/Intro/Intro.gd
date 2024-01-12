@@ -8,6 +8,9 @@ onready var transition = $Transition
 onready var camera: Camera2D = $Camera2D
 onready var polygon: Polygon2D = $Polygon2D
 onready var main_menu = $MainMenu/NinePatchRect
+onready var start_button = $MainMenu/NinePatchRect/VBoxContainer/StartButton
+onready var options_button = $MainMenu/NinePatchRect/VBoxContainer/OptionsButton
+onready var fullscreen_checkbox = $OptionsMenu/NinePatchRect/VBoxContainer/FullscreenCheckBox
 onready var title_sprite: Sprite = $TitleSprite
 onready var credits_tween: Tween = $CreditsTween
 onready var credits_timer: Timer = $CreditsTimer
@@ -15,6 +18,7 @@ onready var options_menu = $OptionsMenu/NinePatchRect
 onready var label_skip: Label = $CanvasLayer/LabelSkip
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var label: Label = $CanvasLayer/CenterContainer/VBoxContainer/Label
+
 
 enum Status {
 	SCROLLING,
@@ -42,6 +46,7 @@ var credits = [
 	"This is free software",
 	"We hope you enjoy it!",
 	"Thank you Raffaele Cecco!",
+	"Ported to Vita by withLogic"
 ]
 
 var messages = [
@@ -81,9 +86,12 @@ func start_menu():
 	label.visible = false
 	start_tween()
 	main_menu.visible = true
+	
+	if Configuration.joypad_connected:
+		start_button.grab_focus()
 
 func _input(event):
-	if (event is InputEventKey and event.pressed) or event is InputEventMouseButton:
+	if ((event is InputEventKey or event is InputEventJoypadButton) and event.pressed) or event is InputEventMouseButton:
 		if status == Status.SCROLLING:
 			skip_scrolling()
 		if status == Status.IDLE:
@@ -176,10 +184,17 @@ func continue_game():
 func start_options():
 	main_menu.visible = false
 	options_menu.visible = true
-
+	
+	if Configuration.joypad_connected:
+		fullscreen_checkbox.grab_focus()
+		fullscreen_checkbox.set_process_input(false)
+		
 func _on_OptionsMenu_return_to_main_menu():
 	main_menu.visible = true
 	options_menu.visible = false
+	
+	if Configuration.joypad_connected:
+		options_button.grab_focus()
 
 func _on_OptionsMenu_fullscreen_toggled(button_pressed):
 	Configuration.fullscreen = button_pressed

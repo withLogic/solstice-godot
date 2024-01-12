@@ -256,9 +256,7 @@ particles_anim_h_frames = 3
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[node name="Player" type="KinematicBody2D" groups=[
-"PlayerGroup",
-]]
+[node name="Player" type="KinematicBody2D" groups=["PlayerGroup"]]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 5 )

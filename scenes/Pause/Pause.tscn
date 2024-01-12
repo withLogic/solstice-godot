@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/Pause/Pause.gd" type="Script" id=1]
 [ext_resource path="res://resources/fonts/joystix-normal.tres" type="DynamicFont" id=2]
-[ext_resource path="res://scenes/Pause/ingame_message.png" type="Texture" id=3]
+[ext_resource path="res://scenes/Pause/taller_ingame_message.png" type="Texture" id=3]
 [ext_resource path="res://scenes/Transition/Transition.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/solstice_theme.tres" type="Theme" id=5]
 
@@ -95,7 +95,7 @@ script = ExtResource( 1 )
 visible = false
 margin_top = 40.0
 margin_right = 256.0
-margin_bottom = 104.0
+margin_bottom = 116.0
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 2
@@ -120,8 +120,8 @@ margin_left = -128.0
 margin_top = -34.0
 margin_right = 128.0
 margin_bottom = -26.0
-custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "PAUSE"
 align = 1
 __meta__ = {
@@ -133,8 +133,21 @@ margin_left = 72.0
 margin_top = 71.0
 margin_right = 184.0
 margin_bottom = 83.0
+focus_neighbour_bottom = NodePath("../CancelButton")
 theme = ExtResource( 5 )
 text = "RETURN TO MENU"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CancelButton" type="Button" parent="Control"]
+margin_left = 72.0
+margin_top = 82.0
+margin_right = 184.0
+margin_bottom = 94.0
+focus_neighbour_top = NodePath("../Button")
+theme = ExtResource( 5 )
+text = "Cancel"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -156,6 +169,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="focus_exited" from="Control/Button" to="." method="_on_Button_focus_exited"]
 [connection signal="pressed" from="Control/Button" to="." method="_on_Button_pressed"]
+[connection signal="focus_exited" from="Control/CancelButton" to="." method="_on_Button_focus_exited"]
+[connection signal="pressed" from="Control/CancelButton" to="." method="_on_CancelButton_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="fadeout_finished" from="Transition" to="." method="_on_Transition_fadeout_finished"]
